@@ -1,5 +1,5 @@
 const vouch = require("../vouch");
-module.exports = async (body, res) => {
+module.exports = async (body, res, log) => {
   if (body.member.user.id == body.data.options[0].value)
     return res.send({
       type: 4,
@@ -72,4 +72,5 @@ module.exports = async (body, res) => {
       upsert: true,
     }
   );
+  log(body);
 };

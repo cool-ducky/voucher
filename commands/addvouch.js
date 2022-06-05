@@ -1,7 +1,16 @@
 const vouch = require("../vouch");
 const role = require("../role");
 const fetch = require("node-fetch");
-module.exports = async (body, res) => {
+module.exports = async (body, res, log) => {
+  if (body.data.options[1].value > 10000)
+    return res.send({
+      type: 4,
+      data: {
+        content:
+          "Woah there that's way to big of a number, please lower the amount of vouches.",
+        flags: 64,
+      },
+    });
   const roleCheck = await role.findOne({ name: "vouch" });
   if (!roleCheck?.ids)
     return res.send({
@@ -59,4 +68,5 @@ module.exports = async (body, res) => {
       flags: 64,
     },
   });
+  log(body);
 };

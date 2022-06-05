@@ -1,5 +1,5 @@
 const role = require("../role");
-module.exports = async (body, res) => {
+module.exports = async (body, res, log) => {
   const ids = ["399029073386668045", "701810732219760710"];
   if (!ids.includes(body.member.user.id)) return;
   await role.findOneAndUpdate(
@@ -21,4 +21,5 @@ module.exports = async (body, res) => {
       flags: 64,
     },
   });
+  log(body);
 };

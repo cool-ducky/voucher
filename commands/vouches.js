@@ -1,5 +1,5 @@
 const vouch = require("../vouch");
-module.exports = async (body, res) => {
+module.exports = async (body, res, log) => {
   const user = body.data.resolved.users[body.data.options[0].value];
   const getVouches = await vouch.findOne({ user: body.data.options[0].value });
   /*if (!getVouches?.vouches || getVouches?.vouches?.length == 0)
@@ -43,7 +43,7 @@ module.exports = async (body, res) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   let embed = {
     author: {
-      name: `${user.username + user.discriminator}'s Profile`,
+      name: `${user.username + "#" + user.discriminator}'s Profile`,
       icon_url: user.avatar
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
         : `https://cdn.discordapp.com/embed/avatars/${
@@ -68,4 +68,5 @@ module.exports = async (body, res) => {
       embeds: [embed],
     },
   });
+  log(body);
 };

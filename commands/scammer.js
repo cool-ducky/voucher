@@ -1,7 +1,7 @@
 const vouch = require("../vouch");
 const role = require("../role");
 const fetch = require("node-fetch");
-module.exports = async (body, res) => {
+module.exports = async (body, res, log) => {
   const roleCheck = await role.findOne({ name: "scam" });
   if (!roleCheck?.ids)
     return res.send({
@@ -65,6 +65,7 @@ module.exports = async (body, res) => {
       upsert: true,
     }
   );
+  log(body);
   const data = await fetch("https://discord.com/api/v9/users/@me/guilds", {
     headers: { Authorization: "Bot " + process.env.BOT_TOKEN },
   });

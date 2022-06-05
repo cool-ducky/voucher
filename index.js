@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const fetch = require("node-fetch");
+const log = require("./logs");
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URL, {
@@ -18,23 +19,7 @@ app.post("/", verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res) => {
   if (!body?.member) return;
   try {
     const command = require(`./commands/${body.data.name}`);
-    command(body, res);
-    let options = [];
-    if (body.data?.options) {
-      for (const option of body.data.options) {
-        console.log(option);
-      }
-    }
-    /*fetch(process.env.WEBHOOK, {
-      method: "post",
-      body: JSON.stringify({
-        embeds: [
-          {
-            title: "/" + body.data.name,
-          },
-        ],
-      }),
-    });*/
+    command(body, res, log);
   } catch (err) {
     console.log(err);
     res.send({
