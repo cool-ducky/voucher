@@ -1,10 +1,11 @@
+const fetch = require("node-fetch");
 module.exports = (body) => {
   let options = [];
+  options.push(`**Used by:** <@${body.member.user.id}>`);
+  options.push(`**Channel:** <#${body.channel_id}>`);
+  const now = new Date();
+  options.push(`**Date:** <t:${Math.round(now.getTime() / 1000)}:D>`);
   if (body.data?.options) {
-    options.push(`**Used by:** <@${body.member.user.id}>`);
-    options.push(`**Channel:** <#${body.channel_id}>`);
-    const now = new Date();
-    options.push(`**Date:** <t:${Math.round(now.getTime() / 1000)}:D>`);
     options.push("Command Options:");
     for (const option of body.data.options) {
       let name = option.name.charAt(0).toUpperCase() + option.name.slice(1);

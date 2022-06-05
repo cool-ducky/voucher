@@ -11,7 +11,7 @@ module.exports = async (body, res, log) => {
         flags: 64,
       },
     });
-  const roleCheck = await role.findOne({ name: "vouch" });
+  const roleCheck = await role.findOne({ name: "vouch", guild: body.guild_id });
   if (!roleCheck?.ids)
     return res.send({
       type: 4,
@@ -48,7 +48,8 @@ module.exports = async (body, res, log) => {
         flags: 64,
       },
     });
-  const update = await vouch.findOneAndUpdate(
+
+  let update = await vouch.findOneAndUpdate(
     {
       user: body.data.options[0].value,
     },
@@ -61,6 +62,21 @@ module.exports = async (body, res, log) => {
       new: true,
     }
   );
+  if (update.n_vouches < 0) {
+    updateUp = await vouch.findOneAndUpdate(
+      {
+        user: body.data.options[0].value,
+      },
+      {
+        user: body.data.options[0].value,
+        $inc: { n_vouches: Math.abs(0 - update.n_vouches) },
+      },
+      {
+        new: true,
+      }
+    );
+    update = updateUp;
+  }
   res.send({
     type: 4,
     data: {

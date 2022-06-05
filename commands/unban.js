@@ -2,7 +2,7 @@ const vouch = require("../vouch");
 const role = require("../role");
 const fetch = require("node-fetch");
 module.exports = async (body, res, log) => {
-  const roleCheck = await role.findOne({ name: "scam" });
+  const roleCheck = await role.findOne({ name: "scam", guild: body.guild_id });
   if (!roleCheck?.ids)
     return res.send({
       type: 4,

@@ -57,8 +57,17 @@ module.exports = async (body, res, log) => {
   res.send({
     type: 4,
     data: {
-      content: `You have successfully vouched <@${body.data.options[0].value}>.`,
-      flags: 64,
+      embeds: [
+        {
+          color: 0x808080,
+          title: "✅ Vouched!",
+          description: `**Reciever:**\n<@${
+            body.data.options[0].value
+          }>\n**Giver:**\n<@${body.member.user.id}>\n**Date:**\n<t:${Math.round(
+            new Date().getTime() / 1000
+          )}:D>\n**Details:**\n${body.data.options[2].value}`,
+        },
+      ],
     },
   });
   await vouch.findOneAndUpdate(

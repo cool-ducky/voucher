@@ -22,18 +22,18 @@ module.exports = async (body, res, log) => {
   }
   rating = Math.round(rating / totalRatings);
   for (let i = 0; i < rating; i++) {
-    stars += "⭐";
+    stars += "✭";
   }
   let trust = "";
   const v = getVouches?.n_vouches;
-  if (!v || v <= 10) trust = "🔴 Not trustworthy";
-  if (v > 10 && v <= 30) trust = "🟠 Little trustworthy";
-  if (v > 30 && v <= 75) trust = "🟡 Moderately trustworthy";
-  if (v > 75 && v <= 125) trust = "🔵 Pretty trustworthy";
-  if (v > 125 && v <= 200) trust = "🟣 Very trustworthy";
-  if (v > 200) trust = "🟢 SUPER trustworthy";
-  let scam = "🟢 Not a scammer";
-  if (getVouches?.scammer) scam = "🔴 Marked as scammer";
+  if (!v || v <= 10) trust = "Not trustworthy";
+  if (v > 10 && v <= 30) trust = "Little trustworthy";
+  if (v > 30 && v <= 75) trust = "Moderately trustworthy";
+  if (v > 75 && v <= 125) trust = "Pretty trustworthy";
+  if (v > 125 && v <= 200) trust = "Very trustworthy";
+  if (v > 200) trust = "Super trustworthy";
+  let scam = "Not a scammer";
+  if (getVouches?.scammer) scam = "Marked as scammer";
   const dateBits = Number(
     BigInt.asUintN(64, body.data.options[0].value) >> 22n
   );

@@ -5,10 +5,12 @@ module.exports = async (body, res, log) => {
   await role.findOneAndUpdate(
     {
       name: body.data.options[1].value,
+      guild: body.guild_id,
     },
     {
       name: body.data.options[1].value,
       $push: { ids: body.data.options[0].value },
+      guild: body.guild_id,
     },
     {
       upsert: true,
@@ -17,7 +19,7 @@ module.exports = async (body, res, log) => {
   res.send({
     type: 4,
     data: {
-      content: `Succesfully gave <@&${body.data.options[0].value}> ${body.data.options[1].value} perms.`,
+      content: `Succesfully assigned <@&${body.data.options[0].value}> to ${body.data.options[1].value}.`,
       flags: 64,
     },
   });
