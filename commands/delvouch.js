@@ -80,7 +80,6 @@ module.exports = async (body, res, log) => {
     type: 4,
     data: {
       content: `Successfully removed **${body.data.options[1].value}** vouches from **<@${body.data.options[0].value}>**, they now have **${update.n_vouches}** vouches.`,
-      flags: 64,
     },
   });
   log(body);

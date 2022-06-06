@@ -20,7 +20,6 @@ module.exports = async (body, res, log) => {
     type: 4,
     data: {
       content: `Succesfully assigned <@&${body.data.options[0].value}> to ${body.data.options[1].value}.`,
-      flags: 64,
     },
   });
   log(body);

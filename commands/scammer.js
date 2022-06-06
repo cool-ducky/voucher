@@ -50,7 +50,6 @@ module.exports = async (body, res, log) => {
     data: {
       content:
         "Marked user as scammer, trying to ban from all guilds now. (Might encounter issues because of discord API ratelimits)",
-      flags: 64,
     },
   });
   vouch.findOneAndUpdate(

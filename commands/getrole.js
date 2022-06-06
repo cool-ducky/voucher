@@ -49,7 +49,6 @@ module.exports = async (body, res, log) => {
     type: 4,
     data: {
       content: `Assigning ${formattedRoles.join(", ")} role(s) to you.`,
-      flags: 64,
     },
   });
   for (const role of rolesToGive) {
