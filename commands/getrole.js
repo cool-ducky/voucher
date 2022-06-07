@@ -29,7 +29,8 @@ module.exports = async (body, res, log) => {
       });
       if (!role?.ids || role?.ids?.length == 0) continue;
       for (const id of role.ids) {
-        if (!body.member.roles.includes(id)) rolesToGive.push(id);
+        if (!body.member.roles.includes(id) && !rolesToGive.includes(id))
+          rolesToGive.push(id);
       }
     }
   }
