@@ -52,7 +52,7 @@ module.exports = async (body, res, log) => {
       content: `Assigning ${formattedRoles.join(", ")} role(s) to you.`,
     },
   });
-  for (const role of rolesToGive) {
+  
     const req = await fetch(
       `https://discord.com/api/v9/guilds/${body.guild_id}/members/${body.member.user.id}`,
       {
@@ -66,7 +66,7 @@ module.exports = async (body, res, log) => {
         },
       }
     );
-  }
-
+const json = await req.json()
+console.log(json)
   log(body);
 };
