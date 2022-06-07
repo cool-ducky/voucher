@@ -52,21 +52,19 @@ module.exports = async (body, res, log) => {
       content: `Assigning ${formattedRoles.join(", ")} role(s) to you.`,
     },
   });
-  
-    const req = await fetch(
-      `https://discord.com/api/v9/guilds/${body.guild_id}/members/${body.member.user.id}`,
-      {
-        method: "patch",
-        body: JSON.stringify({
-          roles: rolesToGive.concat(body.member.roles),
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bot " + process.env.BOT_TOKEN,
-        },
-      }
-    );
-const json = await req.json()
-console.log(json)
+
+  const req = await fetch(
+    `https://discord.com/api/v9/guilds/${body.guild_id}/members/${body.member.user.id}`,
+    {
+      method: "patch",
+      body: JSON.stringify({
+        roles: rolesToGive.concat(body.member.roles),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bot " + process.env.BOT_TOKEN,
+      },
+    }
+  );
   log(body);
 };
