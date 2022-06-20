@@ -3,6 +3,7 @@ const vouchSchema = new mongoose.Schema({
   user: String,
   vouches: Array,
   n_vouches: Number,
+  mm_vouches: Number,
   scammer: Boolean,
   vouchesGiven: Number,
 });

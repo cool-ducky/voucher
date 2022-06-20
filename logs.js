@@ -17,7 +17,7 @@ module.exports = (body) => {
           })`
         );
       }
-      if (option.type == 3 || option.type == 4)
+      if (option.type == 3 || option.type == 4 || option.type == 5)
         options.push(`**${name}:** ${option.value}`);
       if (option.type == 8) options.push(`**${name}:** <@&${option.value}>`);
     }

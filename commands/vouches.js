@@ -56,6 +56,8 @@ module.exports = async (body, res, log) => {
       getVouches?.n_vouches || "0"
     }\n**Vouches Given:**\n${
       getVouches?.vouchesGiven ? getVouches?.vouchesGiven : "0"
+    }\n**MM Vouches:**\n${
+      getVouches?.mm_vouches || "0"
     }\n**Trustworthy:**\n${trust}\n**Scammer:**\n${scam}`,
     footer: {
       text: `Joined discord ${diffDays} days ago`,

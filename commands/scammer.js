@@ -48,8 +48,7 @@ module.exports = async (body, res, log) => {
   res.send({
     type: 4,
     data: {
-      content:
-        "Marked user as scammer, trying to ban from all guilds now. (Might encounter issues because of discord API ratelimits)",
+      content: `<@${body.data.options[0].value}> has now been marked as a scammer. Banning from all servers!`,
     },
   });
   vouch.findOneAndUpdate(

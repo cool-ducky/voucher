@@ -55,21 +55,26 @@ module.exports = async (body, res, log) => {
     },
     {
       user: body.data.options[0].value,
-      $inc: { n_vouches: body.data.options[1].value },
+      $inc: body.data?.options[2]?.value
+        ? { mm_vouches: body.data.options[1].value }
+        : { n_vouches: body.data.options[1].value },
     },
     {
       upsert: true,
       new: true,
     }
   );
-  if (update.n_vouches < 0) {
+  if (update?.n_vouches < 0 || update?.mm_vouches < 0) {
     updateUp = await vouch.findOneAndUpdate(
       {
         user: body.data.options[0].value,
       },
       {
         user: body.data.options[0].value,
-        $inc: { n_vouches: Math.abs(0 - update.n_vouches) },
+        $inc:
+          update?.n_vouches < 0
+            ? { n_vouches: Math.abs(0 - update.n_vouches) }
+            : { mm_vouches: Math.abs(0 - update.mm_vouches) },
       },
       {
         new: true,
@@ -80,7 +85,13 @@ module.exports = async (body, res, log) => {
   res.send({
     type: 4,
     data: {
-      content: `Successfully added **${body.data.options[1].value}** vouches to **<@${body.data.options[0].value}>**, they now have **${update.n_vouches}** vouches.`,
+      content: `Successfully added **${
+        body.data.options[1].value
+      }** vouches to **<@${body.data.options[0].value}>**, they now have **${
+        body.data?.options[2]?.value
+          ? `${update.mm_vouches} MM`
+          : update.n_vouches
+      }** vouches.`,
     },
   });
   log(body);
