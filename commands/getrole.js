@@ -3,12 +3,13 @@ const fetch = require("node-fetch");
 const getRole = require("../role");
 module.exports = async (body, res, log) => {
   const getVouches = await vouch.findOne({ user: body.member.user.id });
-  if (!getVouches?.n_vouches || getVouches.n_vouches < 30)
+const vouches = getVouches?.mm_vouches + getVouches?.n_vouches
+  if (!vouches || vouches < 30)
     return res.send({
       type: 4,
       data: {
         content: `You need at least 30 vouches to get a role, you have **${
-          getVouches?.n_vouches || 0
+          vouches || 0
         }** vouches.`,
         flags: 64,
       },
@@ -22,7 +23,7 @@ module.exports = async (body, res, log) => {
   };
   let rolesToGive = [];
   for (const level in levels) {
-    if (level <= getVouches.n_vouches) {
+    if (level <= vouches) {
       let role = await getRole.findOne({
         guild: body.guild_id,
         name: levels[level],
