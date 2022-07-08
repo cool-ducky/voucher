@@ -39,22 +39,14 @@ module.exports = async (body, res, log) => {
       },
     });
   const scammers = await vouch.find({ scammer: true });
-  let description = "";
-  if (scammers) {
-    for (const scammer of scammers) {
-      description += `<@${scammer.user}> (${scammer.user})\n`;
-    }
-  } else {
-    description = "No scammers!";
-  }
-
   res.send({
     type: 4,
     data: {
       embeds: [
         {
           title: "Scammers",
-          description,
+          description:
+            scammers.length > 0 ? `${scammers.length} bans` : "O bans",
           color: 0x808080,
         },
       ],
