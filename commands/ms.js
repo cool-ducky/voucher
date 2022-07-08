@@ -55,6 +55,7 @@ module.exports = async (body, res, log) => {
         {
           title: "Scammers",
           description,
+          color: 0x808080,
         },
       ],
     },

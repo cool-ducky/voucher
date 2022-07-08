@@ -1,4 +1,8 @@
-[
+[{
+  "name": "ms",
+  "description": "List all the scammers that are currently banned.",
+  "type": 1
+},
   {
     "type": 1,
     "name": "vouch",
