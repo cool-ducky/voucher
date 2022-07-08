@@ -1,6 +1,5 @@
 const vouch = require("../vouch");
 const role = require("../role");
-const fetch = require("node-fetch");
 module.exports = async (body, res, log) => {
   const roleCheck = await role.findOne({ name: "scam", guild: body.guild_id });
   if (!roleCheck?.ids)
@@ -39,42 +38,26 @@ module.exports = async (body, res, log) => {
         flags: 64,
       },
     });
-  const checkScam = await vouch.findOne({ user: body.data.options[0].value });
-  if (checkScam?.scammer)
-    return res.send({
-      type: 4,
-      data: { content: "This user is already marked as a scammer.", flags: 64 },
-    });
+  const scammers = await vouch.find({ scammer: true });
+  let description = "";
+  if (scammers) {
+    for (const scammer of scammers) {
+      description += `<@${scammer.user}> (${scammer.user})\n`;
+    }
+  } else {
+    description = "No scammers!";
+  }
+
   res.send({
     type: 4,
     data: {
-      content: `<@${body.data.options[0].value}> has now been marked as a scammer. Banning from all servers!`,
+      embeds: [
+        {
+          title: "Scammers",
+          description,
+        },
+      ],
     },
   });
-  await vouch.findOneAndUpdate(
-    {
-      user: body.data.options[0].value,
-    },
-    {
-      scammer: true,
-      user: body.data.options[0].value,
-    },
-    {
-      upsert: true,
-    }
-  );
   log(body);
-  const data = await fetch("https://discord.com/api/v9/users/@me/guilds", {
-    headers: { Authorization: "Bot " + process.env.BOT_TOKEN },
-  });
-  const guilds = await data.json();
-  for (const guild of guilds) {
-    const ban = await fetch(
-      `https://discord.com/api/v9/guilds/${guild.id}/bans/${body.data.options[0].value}`,
-      {
-        method: "put",
-        headers: { Authorization: "Bot " + process.env.BOT_TOKEN },
-      }
-    );
-  }
 };
