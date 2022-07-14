@@ -6,6 +6,9 @@ const vouchSchema = new mongoose.Schema({
   mm_vouches: Number,
   scammer: Boolean,
   vouchesGiven: Number,
+  admin: Boolean,
+  banner: Boolean,
+  voucher: Boolean,
 });
 const vouch = mongoose.model("vouche", vouchSchema);
 module.exports = vouch;

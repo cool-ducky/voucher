@@ -1,7 +1,17 @@
 const role = require("../role");
+const vouch = require("./vouch");
 module.exports = async (body, res, log) => {
-  const ids = ["399029073386668045", "701810732219760710"];
-  if (!ids.includes(body.member.user.id)) return;
+  const checkPerm = await vouch.findOne({
+    user: body.member.user.id,
+  });
+  if (!checkPerm?.admin)
+    return res.send({
+      type: 4,
+      data: {
+        content: "You do not have the permissions to add roles.",
+        flags: 64,
+      },
+    });
   await role.findOneAndUpdate(
     {
       name: body.data.options[1].value,

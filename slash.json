@@ -1,12 +1,14 @@
 [{
   "name": "ms",
   "description": "List all the scammers that are currently banned.",
+  "dm_permission": false,
   "type": 1
 },
   {
     "type": 1,
     "name": "vouch",
     "description": "Vouch for a user.",
+    "dm_permission": false,
     "options": [
       {
         "name": "user",
@@ -53,7 +55,8 @@
   {
     "name": "delvouch",
     "type": 1,
-    "description": "Delete a user's vouches. (Only people with \"Vouch Perms\" role may use)",
+    "description": "Delete a user's vouches.",
+    "dm_permission": false,
     "options": [
       {
         "name": "user",
@@ -78,6 +81,7 @@
   {
     "type": 1,
     "name": "vouchmm",
+    "dm_permission": false,
     "description": "Vouch for a MM.",
     "options": [
       {
@@ -124,7 +128,8 @@
   },
   {
     "name": "addvouch",
-    "description": "Add vouches to a user. (Only people with \"Vouch Perms\" role may use)",
+    "description": "Add vouches to a user.",
+    "dm_permission": false,
     "type": 1,
     "options": [
       {
@@ -148,8 +153,9 @@
     ]
   },
   {
-    "name": "scammer",
-    "description": "Mark a user as a scammer. (Must have \"Scammer Perms\" role)",
+    "name": "gban",
+    "description": "Mark a user as a scammer.",
+    "dm_permission": false,
     "type": 1,
     "options": [
       {
@@ -157,12 +163,19 @@
         "description": "The user to mark as a scammer.",
         "type": 6,
         "required": true
+      },
+      {
+        "name": "info",
+        "description": "Info about the ban.",
+        "type": 3,
+        "required": true
       }
     ]
   },
   {
     "name": "unban",
-    "description": "Unmarks a user as a scammer, place the user ID in the user option below. (Must have \"Scammer Perms\" role)",
+    "dm_permission": false,
+    "description": "Unmarks a user as a scammer, place the user ID in the user option below.",
     "type": 1,
     "options": [
       {
@@ -175,12 +188,13 @@
   },
   {
     "name": "addrole",
-    "description": "Assign a specific roles to a specific commands.",
+    "dm_permission": false,
+    "description": "Assign a specific roles to an amount of vouches. (Only admins can use)",
     "options": [
       {
         "type": 8,
         "name": "role",
-        "description": "The role assigned to the command.",
+        "description": "The role assigned to the amount of vouches.",
         "required": true
       },
       {
@@ -189,14 +203,6 @@
         "description": "What to assign the role.",
         "required": true,
         "choices": [
-          {
-            "name": "Scammer Permissions",
-            "value": "scam"
-          },
-          {
-            "name": "Voucher Permissions",
-            "value": "vouch"
-          },
           {
             "name": "Trusted 1 (30+ Vouches)",
             "value": "trust 1"
@@ -223,6 +229,7 @@
   },
   {
     "name": "vouches",
+    "dm_permission": false,
     "description": "Get a users vouches.",
     "type": 1,
     "options": [
@@ -236,6 +243,78 @@
   },
   {
     "name": "getrole",
+    "type": 1,
+    "dm_permission": false,
     "description": "Get roles based on your amount of vouches."
+  },
+  {
+    "name": "addgbanstaff",
+    "dm_permission": false,
+    "type": 1,
+    "description": "Add a staff who can ban people.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user who you like to edit.",
+        "type": 6,
+        "required": true
+      },
+      {
+        "name": "remove",
+        "description": "Remove them as ban staff.",
+        "type": 5,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "addvouchstaff",
+    "dm_permission": false,
+    "type": 1,
+    "description": "Add a staff who can edit people's vouches.",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user who you like to edit.",
+        "type": 6,
+        "required": true
+      },
+      {
+        "name": "remove",
+        "description": "Remove them as vouch staff.",
+        "type": 5,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "addadmin",
+    "dm_permission": false,
+    "type": 1,
+    "description": "Add someone as an admin. (Only owner can use.)",
+    "options": [
+      {
+        "name": "user",
+        "description": "The user who you like to edit.",
+        "type": 6,
+        "required": true
+      },
+      {
+        "name": "remove",
+        "description": "Remove them as admin.",
+        "type": 5,
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "invite",
+    "description": "Get the invite of the bot.",
+    "type": 1
+  },
+  {
+    "name": "servers",
+    "description": "Get the servers of the bot.",
+    "type": 1
   }
 ]
